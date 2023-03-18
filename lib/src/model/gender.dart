@@ -10,6 +10,6 @@ class Gender {
     if (json == null) {
       return Gender(0, '');
     }
-    return Gender( json['id'], json['name']);
+    return Gender(json['id'], json['name']);
   }
 }

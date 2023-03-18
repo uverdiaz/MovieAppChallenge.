@@ -22,9 +22,9 @@ class MovieReviewBloc extends Bloc<MovieReviewEvent, MovieReviewState> {
     final apiRepository = ApiService();
     yield MovieReviewLoading();
     try {
-      List<MovieReview> movieDetail = await apiRepository.getMovieReviews(id);
-
-      yield MovieReviewLoaded(movieDetail);
+      List<MovieReview> movieDetailReview = await apiRepository.getMovieReviews(id);
+      print(movieDetailReview);
+      yield MovieReviewLoaded(movieDetailReview);
     } on Exception catch (e) {
       print(e);
       yield MovieReviewError();

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:untitled1/src/ui/search/search.dart';
 import 'package:untitled1/src/ui/startPage/startPage.dart';
 import '../bloc/moviesBloc/movieBloc.dart';
 import '../bloc/moviesBloc/movieEvent.dart';
+import 'favorites/favorites.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -21,13 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (pos) {
       case 0:
         pageActive = 'Seeri-Movie';
-        return StartPage();
+        return const StartPage();
       case 1:
-        pageActive = 'Buscador';
-        return Text("hola");
+        pageActive = 'Search';
+        return const Search();
       case 2:
-        pageActive = 'Favoritos';
-        return Text("hola");
+        pageActive = 'Favorites';
+        return const Favorites();
     }
   }
 

@@ -7,7 +7,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
         primaryTextTheme: Typography().white,
         textTheme: Typography().white,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

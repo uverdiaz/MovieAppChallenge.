@@ -1,4 +1,3 @@
-
 class MovieReview {
   final String author;
   final String avatarPath;
@@ -8,20 +7,18 @@ class MovieReview {
   String idMovie = '';
 
   MovieReview(
-        this.author,
-        this.avatarPath,
-        this.rating,
-        this.content,);
+    this.author,
+    this.avatarPath,
+    this.rating,
+    this.content,
+  );
 
   factory MovieReview.fromJson(dynamic json) {
     if (json == null) {
-      return MovieReview('','','','');
+      return MovieReview('', '', '', '');
     }
 
-    return MovieReview(
-        json['author'],
-        json['author_details']['avatar_path'],
-        json['author_details']['rating'].toString(),
-        json['content']);
+    return MovieReview(json['author'], json['author_details']['avatar_path'],
+        json['author_details']['rating'].toString(), json['content']);
   }
 }

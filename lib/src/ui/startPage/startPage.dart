@@ -5,8 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../ movieDetail/ movieDetail.dart';
+import '../movieDetail/movieDetail.dart';
 import '../../bloc/moviesBloc/movieBloc.dart';
 import '../../bloc/moviesBloc/movieState.dart';
 import '../../model/movies.dart';
@@ -42,8 +41,7 @@ class StartPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  MovieDetailScreen(movie),
+                              builder: (context) => MovieDetailScreen(movie),
                             ),
                           );
                         },
@@ -53,35 +51,32 @@ class StartPage extends StatelessWidget {
                             ClipRRect(
                               child: CachedNetworkImage(
                                 imageUrl:
-                                'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                                    'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
                                 height:
-                                MediaQuery.of(context).size.height /
-                                    4.8,
+                                    MediaQuery.of(context).size.height / 4.8,
                                 width: MediaQuery.of(context).size.width,
                                 fit: BoxFit.cover,
-                                placeholder: (context, url) => Platform
-                                    .isAndroid
-                                    ? const CircularProgressIndicator()
-                                    : const CupertinoActivityIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/img_not_found.jpg'),
-                                        ),
-                                      ),
+                                placeholder: (context, url) =>
+                                    Platform.isAndroid
+                                        ? const CircularProgressIndicator()
+                                        : const CupertinoActivityIndicator(),
+                                errorWidget: (context, url, error) => Container(
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/img_not_found.jpg'),
                                     ),
+                                  ),
+                                ),
                               ),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height /
-                                  4.8,
+                              height: MediaQuery.of(context).size.height / 4.8,
                               width: MediaQuery.of(context).size.width,
-                              child:Stack(
+                              child: Stack(
                                 alignment: Alignment.bottomLeft,
                                 children: [
                                   Padding(
@@ -112,7 +107,7 @@ class StartPage extends StatelessWidget {
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 6),
                       autoPlayAnimationDuration:
-                      const Duration(milliseconds: 1000),
+                          const Duration(milliseconds: 1000),
                       pauseAutoPlayOnTouch: true,
                       viewportFraction: 0.85,
                       enlargeCenterPage: true,
@@ -121,7 +116,7 @@ class StartPage extends StatelessWidget {
                 ],
               );
             } else {
-              return const Text('Algo genero error. ');
+              return const Text('Error ');
             }
           },
         ),

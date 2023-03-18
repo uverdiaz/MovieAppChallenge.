@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:untitled1/src/bloc/movieReviewBloc/movieReviewlBloc.dart';
 import 'package:untitled1/src/model/movieReview.dart';
-import 'package:untitled1/src/ui/%20movieDetail/reviewModel.dart';
-
+import 'package:readmore/readmore.dart';
+import 'package:untitled1/src/ui/movieDetail/reviewModel.dart';
 import '../../bloc/movieDetailBloc/movieDetailBloc.dart';
 import '../../bloc/movieDetailBloc/movieDetailEvent.dart';
 import '../../bloc/movieDetailBloc/movieDetailState.dart';
@@ -85,7 +85,7 @@ class MovieDetailScreen extends StatelessWidget {
                         errorWidget: (context, url, error) =>
                             Container(
                               decoration: const BoxDecoration(
-                                image: const DecorationImage(
+                                image: DecorationImage(
                                   image:
                                   AssetImage('assets/images/img_not_found.jpg'),
                                 ),
@@ -115,10 +115,11 @@ class MovieDetailScreen extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
+                            const SizedBox(width: 15,),
                             Container(
                               height: 40.0,
-                              width: 110.0 * movieDetail.genres.length,
-                              padding: const EdgeInsets.only(top: 5, left: 15),
+                              width: 100.0 * movieDetail.genres.length,
+                              padding: const EdgeInsets.only(top: 5),
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: movieDetail.genres.length,
@@ -152,7 +153,7 @@ class MovieDetailScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 0, top: 5),
                               child: Container(
-                                height: 34,
+                                height: 35,
                                 width: 90,
                                 decoration: const BoxDecoration(
                                   color: Color(0xFF292A29),
@@ -183,6 +184,9 @@ class MovieDetailScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            const SizedBox(
+                              width: 10,
+                            )
                           ],
                         ),
                       ),
@@ -194,49 +198,35 @@ class MovieDetailScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    movieDetail.title,
-                                    style: const TextStyle(
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  movieDetail.title,
+                                  style: const TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 13,
                             ),
-                            Container(
-                              height: 20 * (movieDetail.overview.length / 50),
-                              child: Text(
-                                movieDetail.overview,
-                                maxLines: 6,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'muli',
-                                    fontSize: 15,
-                                    color: Colors.grey),
-                              ),
-                            ),
                             SizedBox(
-                              height: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height / 70,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                              child: Text(
-                                'Review',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                                overflow: TextOverflow.ellipsis,
+                              height: 18 * (movieDetail.overview.length / 50),
+                              child: ReadMoreText(
+                                movieDetail.overview,
+                                trimLines: 5,
+                                style: const TextStyle(color: Colors.grey),
+                                colorClickableText: Colors.blue,
+                                trimMode: TrimMode.Length,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                moreStyle: const TextStyle(
+                                    fontSize:  14.8, fontWeight: FontWeight.bold),
                               ),
+
                             ),
                           ],
                         ),
@@ -250,38 +240,64 @@ class MovieDetailScreen extends StatelessWidget {
             }
           },
         ),
+
         BlocBuilder<MovieReviewBloc, MovieReviewState>(
           builder: (context, state) {
             if (state is MovieReviewLoading) {
               return const Center();
             } else if (state is MovieReviewLoaded) {
-              List<MovieReview> movieList = state.review;
-              print(movieList.length);
-              return SizedBox(
-                height: movieList.length * 300.0,
-                child: ListView.builder(
-                  itemCount: movieList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const NeverScrollableScrollPhysics(),
-                  primary: false,
-                  itemBuilder: (context, index) {
-                    MovieReview movie = movieList[index];
-                    var rating = double.parse(movie.rating);
-                    return Column(
-                      children: [
-                        modelItemMovieReview(movie, rating),
-                        const Divider(
-                          height: 10,
-                          thickness: 1,
-                          indent: 85,
-                          endIndent: 21,
-                          color: Colors.grey,
+              List <MovieReview> movieListReview = state.review.isNotEmpty ? state.review : [];
+              print(state.review);
+              if (movieListReview.isNotEmpty){
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20,top: 10 ),
+                      child: SizedBox(
+                        height: 20,
+                        child: Text(
+                          'Review',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    );
-                  },
-                ),
-              );
+                      ),
+                    ),
+                    SizedBox(
+                      height: movieListReview.length.toDouble() * 200.0,
+                      child: ListView.builder(
+                        itemCount: movieListReview.length.toInt(),
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        primary: false,
+                        itemBuilder: (context, index) {
+                          MovieReview movie = movieListReview[index];
+                          var rating = movie.rating.toString() != 'null' ? double.parse(movie.rating.toString()).toDouble(): 0.0;
+                          return Column(
+                            children: [
+                              modelItemMovieReview(movie, rating),
+
+                              const Divider(
+                                height: 40,
+                                thickness: 1,
+                                indent: 85,
+                                endIndent: 21,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }else{
+                return Container();
+              }
+
             } else {
               return Container();
             }

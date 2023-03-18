@@ -16,21 +16,21 @@ class Movies {
 
   Movies(
       this.backdropPath,
-        this.id,
-        this.originalLanguage,
-        this.originalTitle,
-        this.overview,
-        this.popularity,
-        this.posterPath,
-        this.releaseDate,
-        this.title,
-        this.video,
-        this.voteCount,
-        this.voteAverage);
+      this.id,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.releaseDate,
+      this.title,
+      this.video,
+      this.voteCount,
+      this.voteAverage);
 
   factory Movies.fromJson(dynamic json) {
     if (json == null) {
-      return Movies('',1,'','','',0.0,'','','',false,0,'');
+      return Movies('', 1, '', '', '', 0.0, '', '', '', false, 0, '');
     }
 
     return Movies(

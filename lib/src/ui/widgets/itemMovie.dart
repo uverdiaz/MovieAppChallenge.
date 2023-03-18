@@ -3,16 +3,28 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ui/ movieDetail/ movieDetail.dart';
-import 'movies.dart';
-class modelItemMovie extends StatelessWidget {
+import '../movieDetail/movieDetail.dart';
+import '../../model/movies.dart';
+class modelItemMovie extends StatefulWidget {
   Movies movie;
   double rating;
   modelItemMovie(
       this.movie,
       this.rating
       );
+
+  @override
+  State<modelItemMovie> createState() => _modelItemMovieState();
+}
+
+class _modelItemMovieState extends State<modelItemMovie> {
+  bool addFavorite = false;
+  storeData(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(id, id);
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,24 +38,53 @@ class modelItemMovie extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  MovieDetailScreen(movie),
+                  MovieDetailScreen(widget.movie),
             ),
           );
             },
             child: ClipRRect(
               child: CachedNetworkImage(
                 imageUrl:
-                'https://image.tmdb.org/t/p/original/${movie.backdropPath}',
+                'https://image.tmdb.org/t/p/original/${widget.movie.backdropPath}',
                 imageBuilder: (context, imageProvider) {
-                  return Container(
-                    width: 158,
-                    height: 195,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+                  return Stack(
+                    children: [
+                      Container(
+                        width: 158,
+                        height: 195,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 158,
+                        height: 195,
+                        child:GestureDetector(
+                          onTap: () {
+                            storeData(widget.movie.id.toString());
+                            setState(() {
+                              addFavorite = !addFavorite;
+                            });
+                          },
+                          child: Stack(
+                            alignment: Alignment.topRight,
+                            children:  [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 2,
+                                  right: 6,
+                                ),
+                                child: addFavorite == false ? const Icon(Icons.favorite_border, color: Colors.white,size: 28,):
+                                const Icon(Icons.favorite, color: Colors.red,size: 28,)
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 },
                 placeholder: (context, url) => Container(
@@ -76,7 +117,7 @@ class modelItemMovie extends StatelessWidget {
             child: SizedBox(
               width: 158,
               child: Text(
-                movie.title,
+                widget.movie.title,
                 style: const TextStyle(
                   fontSize: 11,
                   color: Colors.white,
@@ -95,50 +136,50 @@ class modelItemMovie extends StatelessWidget {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 6),
+                      padding: const EdgeInsets.only(right: 6),
                       child: Icon(
                         Icons.star,
-                        color: rating < 2
+                        color: widget.rating < 2
                             ? Colors.grey
                             : Colors.yellow,
                         size: 15,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 6),
+                      padding: const EdgeInsets.only(right: 6),
                       child: Icon(
                         Icons.star,
-                        color: rating < 4
+                        color: widget.rating < 4
                             ? Colors.grey
                             : Colors.yellow,
                         size: 15,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 6),
+                      padding: const EdgeInsets.only(right: 6),
                       child: Icon(
                         Icons.star,
-                        color: rating < 6
+                        color: widget.rating < 6
                             ? Colors.grey
                             : Colors.yellow,
                         size: 15,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 6),
+                      padding: const EdgeInsets.only(right: 6),
                       child: Icon(
                         Icons.star,
-                        color: rating < 8
+                        color: widget.rating < 8
                             ? Colors.grey
                             : Colors.yellow,
                         size: 15,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 6),
+                      padding: const EdgeInsets.only(right: 6),
                       child: Icon(
                         Icons.star,
-                        color: rating < 9.6
+                        color: widget.rating < 9.6
                             ? Colors.grey
                             : Colors.yellow,
                         size: 14,
@@ -147,7 +188,7 @@ class modelItemMovie extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  movie.voteAverage,
+                  widget.movie.voteAverage,
                   style: const TextStyle(
                     fontSize: 13,
                     color: Colors.amber,

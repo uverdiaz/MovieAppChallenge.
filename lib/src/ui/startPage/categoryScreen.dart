@@ -12,7 +12,7 @@ import '../../bloc/moviesBloc/movieBloc.dart';
 import '../../bloc/moviesBloc/movieEvent.dart';
 import '../../bloc/moviesBloc/movieState.dart';
 import '../../model/gender.dart';
-import '../../model/itemMovie.dart';
+import '../widgets/itemMovie.dart';
 
 class CategoryScreen extends StatefulWidget {
   final int selectedGender;
@@ -96,15 +96,15 @@ class CategoryScreenState extends State<CategoryScreen> {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: (genre.id == selectedGender)
-                                        ? Color(0xFF1377E4)
-                                        : Color(0xFF292A29),
+                                        ? const Color(0xFF1377E4)
+                                        : const Color(0xFF292A29),
                                   ),
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(7),
                                   ),
                                   color: (genre.id == selectedGender)
-                                      ? Color(0xFF1377E4)
-                                      : Color(0xFF292A29),
+                                      ? const Color(0xFF1377E4)
+                                      : const Color(0xFF292A29),
                                 ),
                                 child: Text(
                                   genre.name,
