@@ -12,7 +12,7 @@ In addition to this architecture, the BloC design pattern is used to separate th
 The combination of the layered architecture and the BloC design pattern in Flutter allows for improved modularity and makes the development and maintenance process easier and more scalable.
 
 
-### libraries and Technologies
+### Libraries and Technologies
 
 * Flutter: Version  1.0.0+1 
 * cupertino_icons: ^1.0.2. Provides a set of icons designed for use in Flutter applications similar in style to those used in Apple products.
@@ -28,25 +28,27 @@ The combination of the layered architecture and the BloC design pattern in Flutt
 
 
 
+## User interfaces
+### Home
+
+<img src="https://user-images.githubusercontent.com/65831134/226102036-ddebfe72-58b3-45c5-aa8e-1e6145716346.jpg" width="250" height="500">
+
+### Favorites
+
+<img src="https://user-images.githubusercontent.com/65831134/226102003-902fce31-1a8d-4a7b-896b-954c11507038.jpg" width="250" height="500">
+
+### Search
+
+<img src="https://user-images.githubusercontent.com/65831134/226102045-67dec764-8f6d-4ae9-864c-0ad815e680ff.jpg" width="250" height="500">
+
+### Detail of a movie
+
+|<img src="https://user-images.githubusercontent.com/65831134/226102023-f83abcfb-3d05-4be8-b393-a249bcf65747.jpg" width="250" height="500"> |  <img src="https://user-images.githubusercontent.com/65831134/226101959-16d5857c-b3e5-4172-a371-92341fe65c3b.jpg" width="250" height="500"> 
 
 
 
 
-<img src="https://user-images.githubusercontent.com/65831134/226099847-aa1de67e-79ed-4c09-8e91-600e0d8ab211.jpg" width="250" height="500">
 
-## Technologies
-***
-A list of technologies used within the project:
-* [Technologie name](https://example.com): Version 12.3 
-* [Technologie name](https://example.com): Version 2.34
-* [Library name](https://example.com): Version 1234
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
