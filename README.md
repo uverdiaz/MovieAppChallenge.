@@ -23,7 +23,7 @@ The combination of the layered architecture and the BloC design pattern in Flutt
 * equatable: ^1.2.5. Object comparator in an efficient way in your application
 * carousel_slider: ^2.3.1 Implements an image or content slider in your application.
 * readmore: ^2.1.0. Implements a "read more" functionality in your application.
-* shared_preferences: ^2.0.8
+* shared_preferences: ^2.0.8. Allows simple data to be stored in the device's memory.
 
 
 
